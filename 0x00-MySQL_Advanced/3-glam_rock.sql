@@ -2,13 +2,10 @@
 -- Calculate lifespan; use 2022 if 'split' is NULL, otherwise use 'split' year
 SELECT 
     band_name,
-    CASE 
-        WHEN split IS NULL THEN 2022 - formed
-        ELSE split - formed
-    END AS lifespan
+    COALESCE(split, 2022) - formed AS lifespan
 FROM 
     metal_bands
 WHERE 
-    style = 'Glam rock'
+    style LIKE '%Glam rock%'
 ORDER BY 
     lifespan DESC;
