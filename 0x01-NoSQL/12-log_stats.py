@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
+""" 12. Log stats
 """
-Script to count and display HTTP request logs from a MongoDB collection.
-"""
+
+
 from pymongo import MongoClient
 
 
-def main():
-    """
-    Connects to the MongoDB server, retrieves the 'nginx' collection,
-    and prints counts of logs based on HTTP methods and status checks.
+def log_stats():
+    """ log_stats.
     """
     client = MongoClient('mongodb://127.0.0.1:27017')
     nginx_collection = client.logs.nginx
@@ -27,4 +26,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    log_stats()
