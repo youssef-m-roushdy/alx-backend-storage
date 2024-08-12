@@ -8,11 +8,7 @@ def insert_school(mongo_collection, **kwargs):
     """
     Insert a new school document into the MongoDB collection.
     """
-    document = {
-        'name': kwargs.get('name'),
-        'address': kwargs.get('address')
-    }
 
-    result = mongo_collection.insert_one(document)
+    result = mongo_collection.insert_one(kwargs)
 
     return result.inserted_id
