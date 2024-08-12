@@ -10,24 +10,23 @@ def log_stats():
     """ log_stats.
     """
     client = MongoClient('mongodb://127.0.0.1:27017')
-    nginx_collection = client.logs.nginx
-
-    logs = nginx_collection.count_documents({})
-    GET = nginx_collection.count_documents({"method": "GET"})
-    POST = nginx_collection.count_documents({"method": "POST"})
-    PUT = nginx_collection.count_documents({"method": "PUT"})
-    PATCH = nginx_collection.count_documents({"method": "PATCH"})
-    DELETE = nginx_collection.count_documents({"method": "DELETE"})
-    status_check = nginx_collection.count_documents({"method": "GET",
-                                                     "path": '/status'})
-
-    print("{} logs".format(logs))
-    print("\tmethod GET: {}".format(GET))
-    print("\tmethod POST: {}".format(POST))
-    print("\tmethod PUT: {}".format(PUT))
-    print("\tmethod PATCH: {}".format(PATCH))
-    print("\tmethod DELETE: {}".format(DELETE))
-    print("{} status check".format(status_check))
+    logs_collection = client.logs.nginx
+    total = logs_collection.count_documents({})
+    get = logs_collection.count_documents({"method": "GET"})
+    post = logs_collection.count_documents({"method": "POST"})
+    put = logs_collection.count_documents({"method": "PUT"})
+    patch = logs_collection.count_documents({"method": "PATCH"})
+    delete = logs_collection.count_documents({"method": "DELETE"})
+    path = logs_collection.count_documents(
+        {"method": "GET", "path": "/status"})
+    print(f"{total} logs")
+    print("Methods:")
+    print(f"\tmethod GET: {get}")
+    print(f"\tmethod POST: {post}")
+    print(f"\tmethod PUT: {put}")
+    print(f"\tmethod PATCH: {patch}")
+    print(f"\tmethod DELETE: {delete}")
+    print(f"{path} status check")
 
 
 if __name__ == "__main__":
