@@ -2,4 +2,4 @@
 db.school.update({name: "Holberton school"}, {$set: {
     name: "Holberton school",
     address: "972 Mission street"
-}})
+}}, {upsert: true})
