@@ -4,6 +4,7 @@ Script to count and display HTTP request logs from a MongoDB collection.
 """
 from pymongo import MongoClient
 
+
 def main():
     client = MongoClient('mongodb://127.0.0.1:27017')
     nginx_collection = client.logs.nginx
