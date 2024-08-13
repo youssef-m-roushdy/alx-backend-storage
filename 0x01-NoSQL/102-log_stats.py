@@ -1,15 +1,13 @@
+
 #!/usr/bin/env python3
 """
-    12. Log stats Ips
+Log stats
 """
-
-
 from pymongo import MongoClient
 
 
-def log_status_ips():
-    """
-        log_status_ips
+def log_stats():
+    """ log_stats.
     """
     client = MongoClient('mongodb://127.0.0.1:27017')
     logs_collection = client.logs.nginx
@@ -21,11 +19,6 @@ def log_status_ips():
     delete = logs_collection.count_documents({"method": "DELETE"})
     path = logs_collection.count_documents(
         {"method": "GET", "path": "/status"})
-    ips_present = logs_collection.aggregate([
-        {"$group": {"_id": "$ip", "count": {"$sum": 1}}},
-        {"$project": {"_id": 0, "ip": "$_id", "count": 1}},
-        {"$sort": {"count": -1}}])
-
     print(f"{total} logs")
     print("Methods:")
     print(f"\tmethod GET: {get}")
@@ -35,13 +28,16 @@ def log_status_ips():
     print(f"\tmethod DELETE: {delete}")
     print(f"{path} status check")
     print("IPs:")
+    sorted_ips = logs_collection.aggregate(
+        [{"$group": {"_id": "$ip", "count": {"$sum": 1}}},
+         {"$sort": {"count": -1}}])
     i = 0
-    for ip_present in ips_present:
-        if (i == 10):
+    for s in sorted_ips:
+        if i == 10:
             break
-        print(f"\t{ip_present.get("ip")}: {ip_present.get("count")}")
+        print(f"\t{s.get('_id')}: {s.get('count')}")
         i += 1
 
 
 if __name__ == "__main__":
-    log_status_ips()
+    log_stats()
