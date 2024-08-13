@@ -35,8 +35,7 @@ def log_status_ips():
     print(f"\tmethod PATCH: {patch}")
     print(f"\tmethod DELETE: {delete}")
     print(f"{path} status check")
-
-    print("IPS")
+    print("IPs:")
     for ip_present in ips_present:
         print(f"\t{ip_present.get("ip")}: {ip_present.get("count")}")
 
