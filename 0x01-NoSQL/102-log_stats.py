@@ -24,8 +24,7 @@ def log_status_ips():
     ips_present = logs_collection.aggregate([
         {"$group": {"_id": "$ip", "count": {"$sum": 1}}},
         {"$project": {"_id": 0, "ip": "$_id", "count": 1}},
-        {"$sort": {"count": -1}},
-        {"$limit": 10}])
+        {"$sort": {"count": -1}}])
 
     print(f"{total} logs")
     print("Methods:")
@@ -36,8 +35,12 @@ def log_status_ips():
     print(f"\tmethod DELETE: {delete}")
     print(f"{path} status check")
     print("IPs:")
+    i = 0
     for ip_present in ips_present:
+        if (i == 10):
+            break
         print(f"\t{ip_present.get("ip")}: {ip_present.get("count")}")
+        i += 1
 
 
 if __name__ == "__main__":
