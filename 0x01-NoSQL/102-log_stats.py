@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
-""" 12. Log stats
+"""
+    12. Log stats Ips
 """
 
 
 from pymongo import MongoClient
 
 
-def log_stats():
-    """ log_stats.
+def log_status_ips():
+    """
+        log_status_ips
     """
     client = MongoClient('mongodb://127.0.0.1:27017')
     logs_collection = client.logs.nginx
@@ -40,4 +42,4 @@ def log_stats():
 
 
 if __name__ == "__main__":
-    log_stats()
+    log_status_ips()
