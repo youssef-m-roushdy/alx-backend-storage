@@ -12,11 +12,7 @@ class Cache:
     """
         A class to represent a cache system using Redis.
     """
-
     def __init__(self):
-        """
-            Initializes the Redis client and clears the existing database.
-        """
         self._redis = redis.Redis()
         self._redis.flushdb()
 
